@@ -6,9 +6,9 @@ name: Tests
 on:
   workflow_dispatch:
   push:
-    branches: [ working_main ]
+    branches: [ master ]
   pull_request:
-    branches: [ working_main ]
+    branches: [ master ]
 
 jobs:
   build:
