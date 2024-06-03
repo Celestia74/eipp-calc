@@ -23,6 +23,7 @@ export interface RawDesc {
   defenseEVs?: string;
   hits?: number;
   alliesFainted?: number;
+  crownFainted?: number;
   isBeadsOfRuin?: boolean;
   isSwordOfRuin?: boolean;
   isTabletsOfRuin?: boolean;
@@ -854,6 +855,9 @@ function buildDescription(description: RawDesc, attacker: Pokemon, defender: Pok
   if (description.alliesFainted) {
     output += Math.min(5, description.alliesFainted) +
       ` ${description.alliesFainted === 1 ? 'ally' : 'allies'} fainted `;
+  }
+  if (description.crownFainted) {
+    output += Math.min(4, description.crownFainted)*20 + `% of Pokémon fainted `;
   }
   if (description.attackerTera) {
     output += `Tera ${description.attackerTera} `;
