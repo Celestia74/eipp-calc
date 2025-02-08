@@ -63,7 +63,8 @@ if (process.argv[2] !== 'view') {
 cpdir('src', 'dist');
 cpdir('calc/dist', 'dist/calc');
 makeCachebuster('dist/honkalculate.template.html', 'dist/honkalculate.html');
-makeCachebuster('dist/base.template.html', 'dist/index.html');
+makeCachebuster('dist/eipp13.template.html', 'dist/index.html');
+makeCachebuster('dist/base.template.html', 'dist/base.html');
 makeCachebuster('dist/randoms.template.html', 'dist/randoms.html')
 makeCachebuster('dist/oms.template.html', 'dist/oms.html');
 ;
