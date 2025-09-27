@@ -43,8 +43,8 @@
     <div aria-label="Settings" role="region">
         <span class="modeSelection" aria-labelledby="selectModeInstruction" role="radiogroup" title="Select the calculator's mode of function.">
             <span class="visually-hidden" id="selectModeInstruction">Select the calculator's mode of function.</span>
-                <input class="mode visually-hidden" type="radio" name="mode" id="one-vs-one" checked="checked" /><label class="btn btn-wide btn-left" for="one-vs-one">EiPP-Base</label>
-	            <input class="mode visually-hidden" type="radio" name="mode" id="eipp" /><label class="btn btn-wide btn-right" for="eipp">EiPPLC</label>
+                <input class="mode visually-hidden" type="radio" name="mode" id="one-vs-one" /><label class="btn btn-wide btn-left" for="one-vs-one">EiPP-Base</label>
+	            <input class="mode visually-hidden" type="radio" name="mode" id="eipp" checked="checked" /><label class="btn btn-wide btn-right" for="eipp">EiPPLC</label>
 <!--            <input class="mode visually-hidden" type="radio" name="mode" id="one-vs-all" /><label class="btn btn-mid btn-wide gen-specific g3 g4 g5 g6 g7 g8 g9" for="one-vs-all">One vs All</label>
                 <input class="mode visually-hidden" type="radio" name="mode" id="all-vs-one" /><label class="btn btn-right btn-wide gen-specific g3 g4 g5 g6 g7 g8 g9" for="all-vs-one">All vs One</label>
                 <input class="mode visually-hidden" type="radio" name="mode" id="randoms" /><label class="btn btn-mid btn-wide" for="randoms">Random Battles</label>
@@ -53,14 +53,14 @@
         <span class="genSelection" aria-labelledby="selectGenInstruction" role="radiogroup" title="Select the generation.">
             <span class="visually-hidden" id="selectGenInstruction">Select the generation.</span>
 <!--            <input class="gen visually-hidden" type="radio" name="gen" value="1" id="gen1" /><label class="btn btn-small btn-left" for="gen1">RBY</label>
-            <input class="gen visually-hidden" type="radio" name="gen" value="2" id="gen2" /><label class="btn btn-small btn-mid" for="gen2">GSC</label> -->
+            <input class="gen visually-hidden" type="radio" name="gen" value="2" id="gen2" /><label class="btn btn-small btn-mid" for="gen2">GSC</label>
             <input class="gen visually-hidden" type="radio" name="gen" value="3" id="gen3" /><label class="btn btn-small btn-left" for="gen3">ADV</label>
             <input class="gen visually-hidden" type="radio" name="gen" value="4" id="gen4" /><label class="btn btn-small btn-mid" for="gen4">DPP</label>
             <input class="gen visually-hidden" type="radio" name="gen" value="5" id="gen5" /><label class="btn btn-small btn-mid" for="gen5">B/W</label>
             <input class="gen visually-hidden" type="radio" name="gen" value="6" id="gen6" /><label class="btn btn-small btn-mid" for="gen6">X/Y</label>
             <input class="gen visually-hidden" type="radio" name="gen" value="7" id="gen7" /><label class="btn btn-small btn-mid" for="gen7">S/M</label>
-            <input class="gen visually-hidden" type="radio" name="gen" value="8" id="gen8" /><label class="btn btn-small btn-mid" for="gen8">S/S</label>
-            <input class="gen visually-hidden" type="radio" name="gen" value="9" id="gen9" checked="checked" /><label class="btn btn-small btn-right" for="gen9">S/V</label>
+            <input class="gen visually-hidden" type="radio" name="gen" value="8" id="gen8" /><label class="btn btn-small btn-mid" for="gen8">S/S</label> -->
+            <input class="gen visually-hidden" type="radio" name="gen" value="9" id="gen9" checked="checked" /><label class="btn btn-xxxwide" for="gen9">S/V NatDex LC</label>
         </span>
         <span class="notationSelection" aria-labelledby="selectNotationInstruction" role="radiogroup" title="Select the output notation.">
             <span class="visually-hidden" id="selectNotationInstruction">Select the output notation.</span>
@@ -1615,7 +1615,7 @@
     </script>
     <script type="text/javascript" src="./calc/util.js?"></script>
     <script type="text/javascript" src="./calc/stats.js?"></script>
-    <script type="text/javascript" src="./calc/data/species.js?"></script>
+    <script type="text/javascript" src="./calc/data/eipplc_species.js?"></script>
     <script type="text/javascript" src="./js/data/sets/gen9.js?"></script>
     <script type="text/javascript" src="./js/data/sets/gen8.js?"></script>
     <script type="text/javascript" src="./js/data/sets/gen7.js?"></script>
@@ -1642,11 +1642,11 @@
     <script type="text/javascript" src="./calc/mechanics/gen3.js?"></script>
     <script type="text/javascript" src="./calc/mechanics/gen12.js?"></script>
     <script type="text/javascript" src="./calc/calc.js?"></script>
-    <script type="text/javascript" src="./calc/desc.js?"></script>
+    <script type="text/javascript" src="./calc/eipplc_desc.js?"></script>
     <script type="text/javascript" src="./calc/result.js?"></script>
     <script type="text/javascript" src="./calc/adaptable.js?"></script>
     <script type="text/javascript" src="./calc/index.js?"></script>
-    <script type="text/javascript" src="./js/shared_controls.js?"></script>
+    <script type="text/javascript" src="./js/eipplc_shared_controls.js?"></script>
     <script type="text/javascript" src="./js/index_randoms_controls.js?"></script>
     <script type="text/javascript" src="./js/moveset_import.js?"></script>
 </div>
