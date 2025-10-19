@@ -13,6 +13,7 @@ export class Pokemon implements State.Pokemon {
   species: I.Specie;
 
   types: [I.TypeName] | [I.TypeName, I.TypeName];
+  typeshift: [I.TypeName] | [I.TypeName, I.TypeName];
   weightkg: number;
 
   level: number;
@@ -55,6 +56,7 @@ export class Pokemon implements State.Pokemon {
     this.gen = gen;
     this.name = options.name || name as I.SpeciesName;
     this.types = this.species.types;
+    this.typeshift = this.species.typeshift;
     this.weightkg = this.species.weightkg;
 
     this.level = options.level || 100;

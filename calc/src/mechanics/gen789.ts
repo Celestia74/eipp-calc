@@ -235,6 +235,23 @@ export function calculateSMSSSV(
     move.timesUsed === 1;
 
   let type = move.type;
+// this is messy but whatever it's gonna get purged in a month
+  if (type == attacker.typeshift[0]) {
+  	type = attacker.types[0];
+    desc.moveType = type;
+  } else if (type == attacker.typeshift[1] && attacker.types[1] !== undefined) {
+    if (attacker.types[1] !== attacker.typeshift[1]) {
+      type = attacker.types[1];
+      desc.moveType = type;
+    }
+  } else if (type == attacker.types[0]) {
+    type = attacker.typeshift[0];
+    desc.moveType = type;
+  } else if (type == attacker.types[1] && attacker.typeshift[1] !== undefined) {
+    type = attacker.typeshift[1];
+    desc.moveType = type;
+  }
+
   if (move.originalName === 'Weather Ball') {
     const holdingUmbrella = attacker.hasItem('Utility Umbrella');
     type =
@@ -308,13 +325,19 @@ export function calculateSMSSSV(
     field.defenderSide.isLightScreen = false;
     field.defenderSide.isAuroraVeil = false;
   } else if (move.named('Ivy Cudgel')) {
-    if (attacker.name.includes('Ogerpon-Cornerstone')) {
-      type = 'Rock';
-    } else if (attacker.name.includes('Ogerpon-Hearthflame')) {
-      type = 'Fire';
-    } else if (attacker.name.includes('Ogerpon-Wellspring')) {
-      type = 'Water';
-    }
+      if (attacker.name.includes('Ogerpon-Cornerstone')) {
+        type = 'Rock';
+        desc.moveType = type;
+      } else if (attacker.name.includes('Ogerpon-Hearthflame')) {
+        type = 'Fire';
+        desc.moveType = type;
+      } else if (attacker.name.includes('Ogerpon-Wellspring')) {
+        type = 'Water';
+        desc.moveType = type;
+      } else if (attacker.named('Ogerpon')) {
+        type = 'Grass';
+        desc.moveType = type;
+      }
   } else if (
     move.named('Tera Starstorm') && attacker.name === 'Terapagos-Stellar'
   ) {
