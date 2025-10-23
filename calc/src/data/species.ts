@@ -262,6 +262,7 @@ const BW_PATCH: {[name: string]: DeepPartial<SpeciesData>} = {
     gender: 'N',
   },
   'Meloetta-Pirouette': {
+    types: ['Normal', 'Fighting'],
     typeshift: ['Normal', 'Fighting'],
     bs: {hp: 100, at: 128, df: 90, sa: 77, sd: 77, sp: 128},
     weightkg: 6.5,
@@ -452,7 +453,7 @@ const SS: {[name: string]: SpeciesData} = extend(true, {}, SM, SS_PATCH);
 const PLA_PATCH: {[name: string]: DeepPartial<SpeciesData>} = {
   Ursaring: {nfe: true},
   'Samurott-Hisui': {
-    types: ['Poison', 'Ice'],
+    types: ['Poison', 'Steel'],
     typeshift: ['Water', 'Dark'],
     bs: {hp: 90, at: 108, df: 80, sa: 100, sd: 65, sp: 85},
     weightkg: 58.2,
@@ -552,7 +553,7 @@ class Specie implements I.Specie {
   readonly id: I.ID;
   readonly name: I.SpeciesName;
   readonly types!: [I.TypeName] | [I.TypeName, I.TypeName];
-  readonly typeshift!: [I.TypeName] | [I.TypeName, I.TypeName];
+  readonly typeshift: [I.TypeName] | [I.TypeName, I.TypeName];
   readonly baseStats: Readonly<I.StatsTable>;
   readonly weightkg!: number; // weight
   readonly nfe?: boolean;

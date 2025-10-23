@@ -236,20 +236,22 @@ export function calculateSMSSSV(
 
   let type = move.type;
 // this is messy but whatever it's gonna get purged in a month
-  if (type == attacker.typeshift[0]) {
-  	type = attacker.types[0];
-    desc.moveType = type;
-  } else if (type == attacker.typeshift[1] && attacker.types[1] !== undefined) {
-    if (attacker.types[1] !== attacker.typeshift[1]) {
-      type = attacker.types[1];
+  if (!attacker.named('Meloetta-Pirouette')) {
+    if (type == attacker.typeshift[0]) {
+      type = attacker.types[0];
+      desc.moveType = type;
+    } else if (type == attacker.typeshift[1] && attacker.types[1] !== undefined) {
+      if (attacker.types[1] !== attacker.typeshift[1]) {
+        type = attacker.types[1];
+        desc.moveType = type;
+      }
+    } else if (type == attacker.types[0]) {
+      type = attacker.typeshift[0];
+      desc.moveType = type;
+    } else if (type == attacker.types[1] && attacker.typeshift[1] !== undefined) {
+      type = attacker.typeshift[1];
       desc.moveType = type;
     }
-  } else if (type == attacker.types[0]) {
-    type = attacker.typeshift[0];
-    desc.moveType = type;
-  } else if (type == attacker.types[1] && attacker.typeshift[1] !== undefined) {
-    type = attacker.typeshift[1];
-    desc.moveType = type;
   }
 
   if (move.originalName === 'Weather Ball') {
