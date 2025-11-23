@@ -72,6 +72,7 @@ export namespace State {
     isTailwind?: boolean;
     isHelpingHand?: boolean;
     isFlowerGift?: boolean;
+    isPowerTrick?: boolean;
     isFriendGuard?: boolean;
     isAuroraVeil?: boolean;
     isBattery?: boolean;

@@ -380,7 +380,7 @@ export function calculateBasePowerDPP(
     desc.moveBP = basePower;
     break;
   case 'Fling':
-    basePower = getFlingPower(attacker.item);
+    basePower = getFlingPower(attacker.item, gen.num);
     desc.moveBP = basePower;
     desc.attackerItem = attacker.item;
     break;
@@ -530,7 +530,14 @@ export function calculateAttackDPP(
   desc.attackEVs = getStatDescriptionText(gen, attacker, attackStat, attacker.nature);
   let attack: number;
   const attackBoost = attacker.boosts[attackStat];
-  const rawAttack = attacker.rawStats[attackStat];
+  let rawAttack = attacker.rawStats[attackStat];
+
+  // Power Trick swaps base Attack and Defense stats and gets applied before boosts
+  if (field.attackerSide.isPowerTrick && isPhysical) {
+    desc.isPowerTrickAttacker = true;
+    rawAttack = attacker.rawStats.def;
+  }
+
   if (attackBoost === 0 || (isCritical && attackBoost < 0)) {
     attack = rawAttack;
   } else if (defender.hasAbility('Unaware')) {
@@ -602,11 +609,18 @@ export function calculateDefenseDPP(
   desc.defenseEVs = getStatDescriptionText(gen, defender, defenseStat, defender.nature);
   let defense: number;
   const defenseBoost = defender.boosts[defenseStat];
-  const rawDefense = defender.rawStats[defenseStat];
+  let rawDefense = defender.rawStats[defenseStat];
+
+  // Power Trick swaps base Attack and Defense stats and gets applied before boosts
+  if (field.defenderSide.isPowerTrick && isPhysical) {
+    desc.isPowerTrickDefender = true;
+    rawDefense = defender.rawStats.atk;
+  }
+
 //  if (defenseBoost === 0 || (isCritical && defenseBoost > 0)) {
 //    defense = rawDefense;
 //  } else [to reset crit defense break, un-comment this section and make the below line elseif this one]
-    if (attacker.hasAbility('Unaware')) {
+  if (attacker.hasAbility('Unaware')) {
     defense = rawDefense;
     desc.attackerAbility = attacker.ability;
   } else if (defender.hasAbility('Simple')) {

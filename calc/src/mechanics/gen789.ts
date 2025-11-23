@@ -137,6 +137,7 @@ export function calculateSMSSSV(
 
   if (move.named('Shell Side Arm') &&
     getShellSideArmCategory(attacker, defender) === 'Physical') {
+    move.category = 'Physical';
     move.flags.contact = 1;
   }
 
@@ -397,6 +398,7 @@ export function calculateSMSSSV(
       isRingTarget
     )
     : 1;
+
   let typeEffectiveness = type1Effectiveness * type2Effectiveness;
 
   if (defender.teraType && defender.teraType !== 'Stellar') {
@@ -576,21 +578,13 @@ export function calculateSMSSSV(
   // #region (Special) Attack
   const attack = calculateAttackSMSSSV(gen, attacker, defender, move, field, desc, isCritical);
   const attackStat =
-    move.named('Shell Side Arm') &&
-    getShellSideArmCategory(attacker, defender) === 'Physical'
-      ? 'atk'
-      : move.named('Body Press')
-        ? 'def'
-        : move.category === 'Special'
-          ? 'spa'
-          : 'atk';
+    move.named('Body Press') ? 'def' : move.category === 'Special' ? 'spa' : 'atk';
   // #endregion
 
   // #region (Special) Defense
 
   const defense = calculateDefenseSMSSSV(gen, attacker, defender, move, field, desc, isCritical);
-  const hitsPhysical = move.overrideDefensiveStat === 'def' || move.category === 'Physical' ||
-    (move.named('Shell Side Arm') && getShellSideArmCategory(attacker, defender) === 'Physical');
+  const hitsPhysical = move.overrideDefensiveStat === 'def' || move.category === 'Physical';
   const defenseStat = hitsPhysical ? 'def' : 'spd';
 
   // #endregion
@@ -890,7 +884,7 @@ export function calculateBasePowerSMSSSV(
     }
     break;
   case 'Fling':
-    basePower = getFlingPower(attacker.item);
+    basePower = getFlingPower(attacker.item, gen.num);
     desc.moveBP = basePower;
     desc.attackerItem = attacker.item;
     break;
@@ -1309,20 +1303,20 @@ export function calculateAttackSMSSSV(
   isCritical = false
 ) {
   let attack: number;
-  const attackStat =
-    move.named('Shell Side Arm') &&
-    getShellSideArmCategory(attacker, defender) === 'Physical'
-      ? 'atk'
-      : move.named('Body Press')
-        ? 'def'
-        : move.category === 'Special'
-          ? 'spa'
-          : 'atk';
+  const attackStat = move.named('Body Press') ? 'def' : move.category === 'Special' ? 'spa' : 'atk';
   desc.attackEVs =
     move.named('Foul Play')
       ? getStatDescriptionText(gen, defender, attackStat, defender.nature)
       : getStatDescriptionText(gen, attacker, attackStat, attacker.nature);
   const attackSource = move.named('Foul Play') ? defender : attacker;
+
+  // Power Trick swaps base Attack and Defense stats and gets applied before boosts
+  if (field.attackerSide.isPowerTrick && !move.named('Foul Play') &&
+  move.category === 'Physical') {
+    desc.isPowerTrickAttacker = true;
+    attackSource.rawStats[attackStat] = move.named('Body Press')
+      ? attacker.rawStats.atk : attacker.rawStats.def;
+  }
   if (attackSource.boosts[attackStat] === 0 ||
       (isCritical && attackSource.boosts[attackStat] < 0)) {
     attack = attackSource.rawStats[attackStat];
@@ -1510,16 +1504,22 @@ export function calculateDefenseSMSSSV(
   isCritical = false
 ) {
   let defense: number;
-  const hitsPhysical = move.overrideDefensiveStat === 'def' || move.category === 'Physical' ||
-    (move.named('Shell Side Arm') && getShellSideArmCategory(attacker, defender) === 'Physical');
+  const hitsPhysical = move.overrideDefensiveStat === 'def' || move.category === 'Physical';
   const defenseStat = hitsPhysical ? 'def' : 'spd';
   const boosts = defender.boosts[field.isWonderRoom ? hitsPhysical ? 'spd' : 'def' : defenseStat];
   desc.defenseEVs = getStatDescriptionText(gen, defender, defenseStat, defender.nature);
+
+  // Power Trick swaps attack and defense stats raw before boosts
+  if (field.defenderSide.isPowerTrick && hitsPhysical) {
+    desc.isPowerTrickDefender = true;
+    defender.rawStats[defenseStat] = defender.rawStats.atk;
+  }
+
   if (boosts === 0 ||
 //      (isCritical && boosts > 0) || [to reset crit defense break, un-comment this line]
       move.ignoreDefensive) {
     defense = defender.rawStats[defenseStat];
-  } else if (attacker.hasAbility('Unaware')) {
+  } else if (attacker.hasAbility('Unaware') || move.name === 'Nihil Light') {
     defense = defender.rawStats[defenseStat];
     desc.attackerAbility = attacker.ability;
   } else {

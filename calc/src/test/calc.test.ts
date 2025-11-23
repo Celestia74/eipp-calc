@@ -828,6 +828,39 @@ describe('calc', () => {
         );
       });
     });
+    describe('Shell Side Arm', () => {
+      inGens(8, 9, ({gen, calculate, Pokemon, Move, Field}) => {
+        test('Special Shell Side Arm should not factor in Fur Coat or Fluffy', () => {
+          const attacker = Pokemon('Slowbro-Galar');
+          const defender = Pokemon('Mew', {ability: 'Fluffy', evs: {def: 4}});
+
+          let result = calculate(attacker, defender, Move('Shell Side Arm'));
+          expect(result.move.category).toBe('Special');
+          expect(result.rawDesc.defenderAbility).toBeUndefined();
+
+          defender.ability = 'Fur Coat' as AbilityName;
+
+          result = calculate(attacker, defender, Move('Shell Side Arm'));
+          expect(result.move.category).toBe('Special');
+          expect(result.rawDesc.defenderAbility).toBeUndefined();
+        });
+        test('Physical Shell Side Arm should not factor in Ice Scales', () => {
+          const attacker = Pokemon('Slowbro-Galar');
+          const defender = Pokemon('Mew', {ability: 'Ice Scales', evs: {spd: 4}});
+
+          const result = calculate(attacker, defender, Move('Shell Side Arm'));
+          expect(result.move.category).toBe('Physical');
+          expect(result.rawDesc.defenderAbility).toBeUndefined();
+        });
+        test('Physical Shell Side Arm should make contact', () => {
+          const attacker = Pokemon('Slowbro-Galar');
+          const defender = Pokemon('Mew', {ability: 'Fluffy', evs: {spd: 4}});
+
+          const result = calculate(attacker, defender, Move('Shell Side Arm'));
+          expect(result.move.flags.contact).toBe(1);
+        });
+      });
+    });
   });
 
 
@@ -1547,6 +1580,16 @@ describe('calc', () => {
         );
       });
 
+      test('Power Trick should swap attack and defense raw stats', () => {
+        const attacker = Pokemon('Bastiodon');
+        const defender = Pokemon('Glaceon');
+        const result = calculate(attacker, defender, Move('Iron Head'), Field({attackerSide: {isPowerTrick: true}}));
+
+        expect(result.desc()).toBe(
+          '0 Atk Bastiodon with Power Trick Iron Head vs. 0 HP / 0 Def Glaceon: 252-296 (92.9 - 109.2%) -- 56.3% chance to OHKO'
+        );
+      });
+
       test('Wind Rider should give an Attack boost in Tailwind', () => {
         const attacker = Pokemon('Brambleghast', {'ability': 'Wind Rider'});
         const defender = Pokemon('Brambleghast', {'ability': 'Wind Rider'});
@@ -1639,6 +1682,47 @@ describe('calc', () => {
             const pokemon = Pokemon('Dracovish', {teraType: 'Stellar'});
             expect(calculate(pokemon, pokemon, Move('Earthquake', {isStellarFirstUse: true}), Field({terrain: 'Grassy'})).rawDesc.moveBP).toBe(60);
           });
+        });
+      });
+      describe('Nihil Light is neutral to Fairy-types', () => {
+        const attacker = Pokemon('Zygarde-Mega', {teraType: 'Electric'});
+        const nihilLight = Move('Nihil Light');
+        const otherMove = Move('Electro Drift');
+
+        test('On a Pokemon otherwise neutral to Dragon', () => {
+          const defender = Pokemon('Arceus-Fairy');
+
+          const nihilResult = calculate(attacker, defender, nihilLight);
+          const otherResult = calculate(attacker, defender, otherMove);
+
+          const nihilRange = nihilResult.range();
+          const otherRange = otherResult.range();
+          expect(nihilRange[0]).toBe(otherRange[0]);
+          expect(nihilRange[1]).toBe(otherRange[1]);
+        });
+
+        test('On a Pokemon otherwise resistant to Dragon', () => {
+          const defender = Pokemon('Mawile');
+
+          const nihilResult = calculate(attacker, defender, nihilLight);
+          const otherResult = calculate(attacker, defender, otherMove);
+
+          const nihilRange = nihilResult.range();
+          const otherRange = otherResult.range();
+          expect(nihilRange[0]).toBeLessThan(otherRange[0]);
+          expect(nihilRange[1]).toBeLessThan(otherRange[1]);
+        });
+
+        test('On a Pokemon otherwise weak to Dragon', () => {
+          const defender = Pokemon('Altaria-Mega');
+
+          const nihilResult = calculate(attacker, defender, nihilLight);
+          const otherResult = calculate(attacker, defender, otherMove);
+
+          const nihilRange = nihilResult.range();
+          const otherRange = otherResult.range();
+          expect(nihilRange[0]).toBeGreaterThan(otherRange[0]);
+          expect(nihilRange[1]).toBeGreaterThan(otherRange[1]);
         });
       });
     });
