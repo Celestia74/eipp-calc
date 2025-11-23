@@ -69,5 +69,6 @@ cpdir('src', 'dist');
 cpdir('calc/dist', 'dist/calc');
 makeCachebuster('src/honkalculate.html', 'dist/honkalculate.html');
 makeCachebuster('src/base.html', 'dist/index.html');
+makeCachebuster('src/qipp.html', 'dist/eipp.html');
 makeCachebuster('src/randoms.html', 'dist/randoms.html');
 makeCachebuster('src/oms.html', 'dist/oms.html');

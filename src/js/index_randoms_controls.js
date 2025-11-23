@@ -210,7 +210,7 @@ $(".mode").change(function () {
 	} else if (mode === 'one-vs-one') {
 		window.location.replace('index.html?' + params);
 	} else if (mode === 'eipp') {
-		window.location.replace('eipplc.html?' + params);
+		window.location.replace('eipp.html?' + params);
 	} else if (mode === "oms") {
 		window.location.replace('oms.html');
 	} else {
