@@ -278,7 +278,6 @@ const PLA_PATCH: {[name: string]: DeepPartial<SpeciesData>} = {
     bs: {hp: 60, at: 75, df: 45, sa: 65, sd: 50, sp: 55},
     weightkg: 22.7,
     abilities: {0: 'Intimidate'},
-    baseSpecies: 'Growlithe',
     nfe: true,
   },
   'Zorua-Hisui': {
