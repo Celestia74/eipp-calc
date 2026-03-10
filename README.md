@@ -1,13 +1,12 @@
-# Pokémon Damage Calculator
+# Pokémon Damage Calculator for EiPP
 
-![Test Status](https://github.com/smogon/damage-calc/workflows/Tests/badge.svg)
 [![npm version](https://img.shields.io/npm/v/@smogon/calc.svg)](https://www.npmjs.com/package/@smogon/calc)&nbsp;
 
-Damage calculator for all generations of Pokémon battling.
+Modified damage calculator for Everyone is Pokémon Pokémon.
 
-If you are currently looking at [smogon/damage-calc][0] and not
-a fork, this is the official repository for the Pokémon Showdown! damage calculator:
-https://calc.pokemonshowdown.com.
+Fork of [smogon/damage-calc][0].
+
+[the rest of this ReadMe is unchanged from the parent repo]
 
 This repository houses both the package implementing the core damage formula mechanics in each
 generation ([`@smogon/calc`][1]) as well as [logic and markup for the official UI][2].
