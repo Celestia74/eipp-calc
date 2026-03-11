@@ -163,7 +163,7 @@ export function calculateADV(
   baseDamage = Math.floor(baseDamage * type2Effectiveness);
   const damage = [];
   for (let i = 85; i <= 100; i++) {
-    damage[i - 85] = Math.max(1, Math.floor((baseDamage * i) / 100));
+    damage[i - 85] = Math.max(1, Math.floor((baseDamage * 92) / 100));
   }
   result.damage = damage;
 
@@ -195,7 +195,7 @@ export function calculateADV(
 
       const damage = [];
       for (let i = 85; i <= 100; i++) {
-        const newFinalDamage = Math.max(1, Math.floor((newBaseDmg * i) / 100));
+        const newFinalDamage = Math.max(1, Math.floor((newBaseDmg * 92) / 100));
         damage[i - 85] = newFinalDamage;
       }
       damageMatrix[times] = damage;
