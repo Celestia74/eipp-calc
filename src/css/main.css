@@ -31,12 +31,13 @@ header {
     width: 700px;
     margin: 0 auto;
     position: relative;
+    align-items: center;
 }
 .nav {
     padding: 0;
 }
 .nav-wrapper .nav {
-    padding-left: 140px;
+    padding-left: 75px;
     padding-top: 5px;
 }
 .nav li {
@@ -44,7 +45,6 @@ header {
     list-style-type: none;
 }
 .nav img {
-    position: absolute;
     left: 0;
     top: 0;
 }
@@ -121,7 +121,7 @@ header {
         display: inline-block;
     }
     .nav-wrapper .nav {
-        padding-left: 135px;
+        padding-left: 30px;
     }
     .nav a {
         font-weight: normal;
@@ -133,26 +133,17 @@ header {
 }
 
 @media (max-width:554px) {
-    header {
-        height: 100px;
-    }
     .nav-wrapper .nav {
-        padding-left: 0;
-        padding-top: 50px;
+        padding-left: 35px;
     }
     .nav img {
         top: 10px;
     }
     .nav a {
-        padding: 8px 12px;
+        padding: 8px 7px;
     }
     .nav a.nav-first {
         margin-left: 0;
-    }
-    .nav a.greenbutton {
-        position: absolute;
-        top: 10px;
-        right: 0;
     }
 }
 @media (max-width:419px) {
@@ -261,11 +252,6 @@ footer a.cur, footer a.cur:hover {
 .visually-hidden[type=radio]:checked + .btn:hover {
 	border-color: #CCCCCC;
 	cursor: default;
-}
-
-.modeSelection .btn {
-    min-height: 2.5em;
-    vertical-align: middle;
 }
 
 select {
@@ -554,7 +540,7 @@ select.toxic-counter {
     width: 5.5em;
 }
 .move-selector, .move-bp {
-    font-size: 0.9em;
+    font-size: 1em;
 }
 /* .move-type, .move-cat, .move-hits {
     font-size: 11px;
