@@ -31,12 +31,13 @@ header {
     width: 700px;
     margin: 0 auto;
     position: relative;
+    align-items: center;
 }
 .nav {
     padding: 0;
 }
 .nav-wrapper .nav {
-    padding-left: 140px;
+    padding-left: 75px;
     padding-top: 5px;
 }
 .nav li {
@@ -44,7 +45,6 @@ header {
     list-style-type: none;
 }
 .nav img {
-    position: absolute;
     left: 0;
     top: 0;
 }
@@ -261,11 +261,6 @@ footer a.cur, footer a.cur:hover {
 .visually-hidden[type=radio]:checked + .btn:hover {
 	border-color: #CCCCCC;
 	cursor: default;
-}
-
-.modeSelection .btn {
-    min-height: 2.5em;
-    vertical-align: middle;
 }
 
 select {
@@ -554,7 +549,7 @@ select.toxic-counter {
     width: 5.5em;
 }
 .move-selector, .move-bp {
-    font-size: 0.9em;
+    font-size: 1em;
 }
 /* .move-type, .move-cat, .move-hits {
     font-size: 11px;
