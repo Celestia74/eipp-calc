@@ -72,7 +72,7 @@ export function display(
   const maxDisplay = toDisplay(notation, max, defender.maxHP());
 
   const desc = buildDescription(rawDesc, attacker, defender);
-  const damageText = `${min}-${max} (${minDisplay} - ${maxDisplay}${notation})`;
+  const damageText = `${min} HP (${minDisplay}${notation})`;
 
   if (move.category === 'Status' && !move.named('Nature Power')) return `${desc}: ${damageText}`;
   const koChanceText = getKOChance(gen, attacker, defender, move, field, damage, err).text;
@@ -95,7 +95,7 @@ export function displayMove(
   const recoveryText = getRecovery(gen, attacker, defender, move, damage, notation).text;
   const recoilText = getRecoil(gen, attacker, defender, move, damage, notation).text;
 
-  return `${minDisplay} - ${maxDisplay}${notation}${recoveryText &&
+  return `${minDisplay}${notation}${recoveryText &&
     ` (${recoveryText})`}${recoilText && ` (${recoilText})`}`;
 }
 
@@ -169,7 +169,7 @@ export function getRecovery(
   const minHealthRecovered = toDisplay(notation, recovery[0], attacker.maxHP());
   const maxHealthRecovered = toDisplay(notation, recovery[1], attacker.maxHP());
   const change = recovery[0] > 0 ? 'recovered' : 'lost';
-  text = `${minHealthRecovered} - ${maxHealthRecovered}${notation} ${change}`;
+  text = `${minHealthRecovered}${notation} ${change}`;
 
   return {recovery, text};
 }
@@ -207,7 +207,7 @@ export function getRecoil(
     }
     if (!attacker.hasAbility('Rock Head')) {
       recoil = [minRecoilDamage, maxRecoilDamage];
-      text = `${minRecoilDamage} - ${maxRecoilDamage}${notation} recoil damage`;
+      text = `${minRecoilDamage}${notation} recoil damage`;
     }
   } else if (move.hasCrashDamage) {
     const genMultiplier = gen.num === 2 ? 12.5 : gen.num >= 3 ? 50 : 1;
@@ -244,7 +244,7 @@ export function getRecoil(
           text = 'no crash damage on Ghost types';
         }
       } else {
-        text = `${minRecoilDamage} - ${maxRecoilDamage}${notation} crash damage on miss`;
+        text = `${minRecoilDamage}{notation} crash damage on miss`;
       }
       break;
     default:
@@ -289,7 +289,7 @@ export function getKOChance(
   if (move.timesUsedWithMetronome === undefined) move.timesUsedWithMetronome = 1;
 
   if (damage[0] >= defender.maxHP() && move.timesUsed === 1 && move.timesUsedWithMetronome === 1) {
-    return {chance: 1, n: 1, text: 'guaranteed OHKO'};
+    return {chance: 1, n: 1, text: 'OHKO'};
   }
 
   const hazards = getHazards(gen, defender, field.defenderSide);
@@ -335,7 +335,7 @@ export function getKOChance(
     let text = qualifier;
     let chance = undefined;
     if (chanceWithoutEot === undefined || chanceWithEot === undefined) {
-      text += `possible ${KOTurnText}`;
+      text += `${KOTurnText}`;
       // not a KO
     } else if (chanceWithoutEot + chanceWithEot === 0) {
       chance = 0;
@@ -343,8 +343,7 @@ export function getKOChance(
       // if the move OHKOing is guaranteed even without end of turn damage
     } else if (chanceWithoutEot === 1) {
       chance = chanceWithoutEot;
-      text = 'guaranteed ';
-      text += `OHKO${hazardsText}`;
+      text = `OHKO${hazardsText}`;
     } else if (chanceWithoutEot > 0) {
       chance = chanceWithEot;
       // if the move OHKOing is possible, but eot damage guarantees the OHKO
@@ -353,26 +352,25 @@ export function getKOChance(
       // eg. if your opponent has a move that can OHKO you but you're faster,
       // it might be important to get the OKKO before they can move
       if (chanceWithEot === 1) {
-        text += `${roundChance(chanceWithoutEot)}% chance to ${KOTurnText}${hazardsText} ` +
-          `(guaranteed ${KOTurnText}${afterTextNoHazards})`;
+        text += `${KOTurnText}${hazardsText} ` +
+          `(${KOTurnText}${afterTextNoHazards})`;
         // if the move OHKOing is possible, and eot damage increases the odds of the KO
       } else if (chanceWithEot > chanceWithoutEot) {
-        text += `${roundChance(chanceWithoutEot)}% chance to ${KOTurnText}${hazardsText} ` +
-          `(${qualifier}${roundChance(chanceWithEot)}% chance to ` +
+        text += `${KOTurnText}${hazardsText} ` +
+          `(${qualifier}` +
           `${KOTurnText}${afterTextNoHazards})`;
         // if the move KOing is possible, and eot damage does not increase the odds of the KO
       } else if (chanceWithoutEot > 0) {
-        text += `${roundChance(chanceWithoutEot)}% chance to ${KOTurnText}${hazardsText}`;
+        text += `${KOTurnText}${hazardsText}`;
       }
     } else if (chanceWithoutEot === 0) {
       chance = chanceWithEot;
       // if the move KOing is not possible, but eot damage guarantees the OHKO
       if (chanceWithEot === 1) {
-        text = 'guaranteed ';
-        text += `${KOTurnText}${afterText}`;
+        text = `${KOTurnText}${afterText}`;
         // if the move KOing is not possible, but eot damage might KO
       } else if (chanceWithEot > 0) {
-        text += `${roundChance(chanceWithEot)}% chance to ${KOTurnText}${afterText}`;
+        text += `${KOTurnText}${afterText}`;
       }
     }
     return {chance, n, text};
