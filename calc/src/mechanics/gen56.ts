@@ -946,7 +946,7 @@ export function calculateDefenseBWXY(
   }
 
   const boosts = defender.boosts[defenseStat];
-  if (boosts === 0 || (isCritical && boosts > 0) ||
+  if (boosts === 0 || // (isCritical && boosts > 0) || [to reset crit defense break, un-comment this section]
     move.ignoreDefensive) {
     defense = defender.rawStats[defenseStat];
   } else if (attacker.hasAbility('Unaware')) {
