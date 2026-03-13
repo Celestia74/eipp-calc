@@ -452,5 +452,6 @@ function calculateFinalModsADV(
   if (move.hasType(...attacker.types)) {
     baseDamage = Math.floor(baseDamage * 1.5);
   }
+
   return baseDamage;
 }
