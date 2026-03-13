@@ -23,6 +23,7 @@ export interface RawDesc {
   defenseEVs?: string;
   hits?: number;
   alliesFainted?: number;
+  dwc?: boolean;
   isStellarFirstUse?: boolean;
   isBeadsOfRuin?: boolean;
   isSwordOfRuin?: boolean;
@@ -1053,6 +1054,9 @@ function buildDescription(description: RawDesc, attacker: Pokemon, defender: Pok
   }
   if (description.defenderTera) {
     output += `Tera ${description.defenderTera} `;
+  }
+  if (description.dwc) {
+    output += 'EiPP Clause ';
   }
   output += description.defenderName;
   if (description.weather && description.terrain) {
