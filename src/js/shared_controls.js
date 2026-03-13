@@ -929,11 +929,13 @@ $(".forme").change(function () {
 		baseStat.val(altForme.bs[LEGACY_STATS[9][i]]);
 		baseStat.keyup();
 	}
-	if (
-		(startsWith($(this).val(), "Ogerpon") && endsWith($(this).val(), "Tera")) || $(this).val() === "Terapagos-Stellar"
-	) {
-		$(this).parent().siblings().find(".teraToggle").prop("checked", true);
+	var toggleState;
+	if (startsWith($(this).val(), "Ogerpon")) {
+		toggleState = endsWith($(this).val(), "Tera") ? true : false;
+	} else if (startsWith($(this).val(), "Terapagos")) {
+		toggleState = endsWith($(this).val(), "Stellar") ? true : false;
 	}
+	if (toggleState !== undefined) { $(this).parent().siblings().find(".teraToggle").prop("checked", toggleState); }
 	var isRandoms = $("#randoms").prop("checked");
 	var pokemonSets = isRandoms ? randdex[pokemonName] : setdex[pokemonName];
 	var chosenSet = isRandoms && gen < 8 ? pokemonSets : pokemonSets && pokemonSets[setName];
