@@ -204,6 +204,8 @@ $(".mode").change(function () {
 		window.location.replace('champions.html?' + params);
 	} else if (mode === 'one-vs-one') {
 		window.location.replace('index.html?' + params);
+	} else if (mode === 'eipp') {
+		window.location.replace('eipp.html?' + params);
 	} else if (mode === "oms") {
 		window.location.replace('oms.html');
 	} else {
@@ -219,16 +221,40 @@ $(document).ready(function () {
 	var params = new URLSearchParams(window.location.search);
 	var m = params.get('mode');
 	if (m) {
-		if (m !== 'one-vs-one' && m !== 'randoms' && m !== 'champions') {
-			window.location.replace('honkalculate.html?' + params);
+		if (m !== 'one-vs-one' && m !== 'randoms' && m !== 'eipp' && m !== 'oms') {
+			window.location.replace('honkalculate' + linkExtension + '?' + params);
 		} else {
 			if ($('#randoms').prop('checked')) {
 				if (m === 'one-vs-one') {
-					window.location.replace('index.html?' + params);
+					window.location.replace('index' + linkExtension + '?' + params);
+				} else if (m === 'eipp') {
+					window.location.replace('eipp' + linkExtension + '?' + params);
+				} else if (m === 'oms') {
+					window.location.replace('oms' + linkExtension + '?' + params);
+				}
+			} else if ($('#eipp').prop('checked')) {
+				if (m === 'one-vs-one') {
+					window.location.replace('index' + linkExtension + '?' + params);
+				} else if (m === 'oms') {
+					window.location.replace('oms' + linkExtension + '?' + params);
+				} else if (m === 'randoms') {
+					window.location.replace('randoms' + linkExtension + '?' + params);
+				}
+			} else if ($('#oms').prop('checked')) {
+				if (m === 'one-vs-one') {
+					window.location.replace('index' + linkExtension + '?' + params);
+				} else if (m === 'eipp') {
+					window.location.replace('eipp' + linkExtension + '?' + params);
+				} else if (m === 'randoms') {
+					window.location.replace('randoms' + linkExtension + '?' + params);
 				}
 			} else {
 				if (m === 'randoms') {
-					window.location.replace('randoms.html?' + params);
+					window.location.replace('randoms' + linkExtension + '?' + params);
+				} else if (m === 'eipp') {
+					window.location.replace('eipp' + linkExtension + '?' + params);
+				} else if (m === 'oms') {
+					window.location.replace('oms' + linkExtension + '?' + params);
 				}
 			}
 		}
