@@ -680,6 +680,7 @@ $(".set-selector").change(function () {
 			var set = regSets ? correctHiddenPower(setdex[pokemonName][setName]) : randset;
 			if (regSets) {
 				pokeObj.find(".teraType").val(set.teraType || getForcedTeraType(pokemonName) || pokemon.types[0]);
+				pokeObj.find(".gmaxToggle").prop("checked", set.isGmax || false);
 			}
 			pokeObj.find(".level").val(set.level === undefined ? 100 : set.level);
 			for (i = 0; i < LEGACY_STATS[gen].length; i++) {

@@ -24,6 +24,9 @@ function ExportPokemon(pokeInfo) {
 			finalText += "Tera Type: " + teraType + "\n";
 		}
 	}
+	if (gen === 8 && pokeInfo.find(".gmaxToggle").prop("checked") === true) {
+		finalText += "Gigantamax: Yes \n";
+	}
 	if (gen > 2) {
 		var EVs_Array = [];
 		for (var stat in pokemon.evs) {
@@ -123,7 +126,6 @@ function getStats(currentPoke, rows, offset) {
 		var currentRow = rows[x] ? rows[x].split(/[/:]/) : '';
 		var evs = {};
 		var ivs = {};
-		var ev;
 		var j;
 
 		switch (currentRow[0]) {
@@ -146,7 +148,9 @@ function getStats(currentPoke, rows, offset) {
 			}
 			currentPoke.ivs = ivs;
 			break;
-
+		case 'Gigantamax':
+			if (currentRow[1].trim() === "Yes") { currentPoke.isGmax = true; }
+			break;
 		}
 		currentAbility = rows[x] ? rows[x].trim().split(":") : '';
 		if (currentAbility[0] == "Ability") {
@@ -233,6 +237,7 @@ function addToDex(poke) {
 	if (poke.teraType !== undefined) {
 		dexObject.teraType = poke.teraType;
 	}
+	dexObject.isGmax = poke.isGmax;
 	dexObject.level = poke.level;
 	dexObject.evs = poke.evs;
 	dexObject.ivs = poke.ivs;
