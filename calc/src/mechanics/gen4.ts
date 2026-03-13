@@ -616,7 +616,7 @@ export function calculateDefenseDPP(
     defense = getSimpleModifiedStat(defense, defenseBoost);
     desc.defenderAbility = defender.ability;
     desc.defenseBoost = defenseBoost;
-  } else if (defenseBoost < 0 || (!isCritical && defenseBoost > 0)) {
+  } else if (defenseBoost !== 0) { // [to reset crit defense break, replace the if() with this: (defenseBoost < 0 || (!isCritical && defenseBoost > 0))]
     defense = getModifiedStat(defense, defenseBoost);
     desc.defenseBoost = defenseBoost;
   }
