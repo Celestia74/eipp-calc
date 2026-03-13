@@ -23,6 +23,7 @@ export interface RawDesc {
   defenseEVs?: string;
   hits?: number;
   alliesFainted?: number;
+  dwc?: boolean;
   isStellarFirstUse?: boolean;
   isBeadsOfRuin?: boolean;
   isSwordOfRuin?: boolean;
@@ -1040,6 +1041,9 @@ function buildDescription(description: RawDesc, attacker: Pokemon, defender: Pok
   }
   if (description.isVesselOfRuin) {
     output += 'Vessel of Ruin ';
+  }
+  if (description.dwc) {
+    output += 'EiPP Clause ';
   }
   if (description.isProtected) {
     output += 'protected ';

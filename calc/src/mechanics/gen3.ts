@@ -161,6 +161,10 @@ export function calculateADV(
 
   baseDamage = Math.floor(baseDamage * type1Effectiveness);
   baseDamage = Math.floor(baseDamage * type2Effectiveness);
+  if (typeEffectiveness === 4 && field.defenderSide.isDWC === true && (move.timesUsed! === 1)) {
+    baseDamage = Math.floor(baseDamage / 2);
+    desc.dwc = true;
+  }
   const damage = [];
   for (let i = 85; i <= 100; i++) {
     damage[i - 85] = Math.max(1, Math.floor((baseDamage * 92) / 100));
@@ -192,7 +196,9 @@ export function calculateADV(
       newBaseDmg = calculateFinalModsADV(newBaseDmg, attacker, move, field, desc, isCritical);
       newBaseDmg = Math.floor(newBaseDmg * type1Effectiveness);
       newBaseDmg = Math.floor(newBaseDmg * type2Effectiveness);
-
+      if (move.hits > 1 && move.timesUsed! === 1 && typeEffectiveness === 4 && field.defenderSide.isDWC) {
+        newBaseDmg = Math.floor(newBaseDmg / 2);
+      }
       const damage = [];
       for (let i = 85; i <= 100; i++) {
         const newFinalDamage = Math.max(1, Math.floor((newBaseDmg * 92) / 100));
