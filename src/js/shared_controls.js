@@ -532,11 +532,11 @@ $(".move-selector").change(function () {
 		moveGroupObj.children(".move-hits").empty();
 		if (!isNaN(move.multihit)) {
 			for (var i = 1; i <= move.multihit; i++) {
-				moveGroupObj.children(".move-hits").append("<option value=" + i + ">" + i + " hits</option>");
+				moveGroupObj.children(".move-hits").append("<option value=" + i + ">" + i + (i===1 ? " hit</option>" : " hits</option>"));
 			}
 		} else {
 			for (var i = 1; i <= move.multihit[1]; i++) {
-				moveGroupObj.children(".move-hits").append("<option value=" + i + ">" + i + " hits</option>");
+				moveGroupObj.children(".move-hits").append("<option value=" + i + ">" + i + (i===1 ? " hit</option>" : " hits</option>"));
 			}
 		}
 		moveGroupObj.children(".move-hits").show();
@@ -559,8 +559,11 @@ $(".move-selector").change(function () {
 		moveGroupObj.children(".move-times").hide();
 	} else {
 		moveGroupObj.children(".move-hits").val(1);
-		moveGroupObj.children(".move-hits").hide();
-		moveGroupObj.children(".move-times").show();
+		if ($("#multi-turn").prop("checked") === true) {
+			moveGroupObj.children(".move-times").show();
+		} else {
+			moveGroupObj.children(".move-times").hide();
+		}
 	}
 	moveGroupObj.children(".move-z").prop("checked", false);
 });

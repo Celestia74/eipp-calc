@@ -66,6 +66,11 @@
             <input class="notation visually-hidden" type="radio" name="notation" id="pixels" value="px" /><label class="btn btn-small btn-left" for="pixels">48th</label>
             <input class="notation visually-hidden" type="radio" name="notation" id="percentage" value="%" /><label class="btn btn-small btn-right" for="percentage">100%</label>
         </span>
+        <span class="notationSelection gen-specific g3 g4 g5 g6 g7 g8 g9" aria-labelledby="selectMultipleTurnsInstruction" title="Reload the page for changes to take effect.">
+        	<span class="visually-hidden" id="selectMultipleTurnsInstruction">Select whether to calculate multiple turns.</span>
+        	<input class="visually-hidden" type="checkbox" name="multipleturns" value="yes" id="multi-turn" />
+        	<label class="btn btn-xxwide" for="multi-turn">Multi-Turn Mode</label>
+        </span>
     </div>
     <hr />
     <div aria-label="Move selection" class="move-result-group" role="region" title="Select a move to show detailed results.">
@@ -138,7 +143,6 @@
                     <label>Type</label>
                     <select aria-label="type1" class="type1 terrain-trigger calc-trigger"></select>
                     <select aria-label="type2" class="type2 terrain-trigger calc-trigger"></select>
-                    <small class="right">(<a class="analysis links-lighten" target="_blank" href="">Smogon&nbsp;analysis</a>)</small>
                 </div>
                 <div class="gen-specific g9">
                     <label>Tera Type</label>
@@ -696,8 +700,11 @@
                     <span class="visually-hidden" id="selectTerrainInstruction">Select the current terrain.</span>
                     <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Electric" id="electric" /><label class="btn btn-left" for="electric">Electric</label>
                     <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Grassy" id="grassy" /><label class="btn btn-mid" for="grassy">Grassy</label>
-                    <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Misty" id="misty" /><label class="btn btn-mid" for="misty">Misty</label>
-                    <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Psychic" id="psychic" /><label class="btn btn-xxxwide btn-right" for="psychic">Psychic Terrain</label>
+                    <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Misty" id="misty" /><label class="btn btn-xxxwide btn-right gen-specific g6" for="misty">Misty Terrain</label>
+                    <span class="gen-specific g7 g8 g9">
+                        <label class="btn btn-mid" for="misty">Misty</label>
+                        <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Psychic" id="psychic" /><label class="btn btn-xxxwide btn-right" for="psychic">Psychic Terrain</label>
+                    </span>
                 </div>
                 <div aria-labelledby="selectRuinInstruction" class="gen-specific g9 format-specific doubles" role="group" style="margin: 5px auto auto;" title="Select the ruin abilities from other Pok&eacute;mon on the field.">
                     <span class="visually-hidden" id="selectRuinInstruction">Select the active Ruin abilities from other Poke&eacute;mon on the field.</span>
@@ -749,15 +756,15 @@
                     <input class="weather visually-hidden calc-trigger" type="radio" name="gscWeather" value="Sand" id="gscSand" />
                     <label class="btn btn-small btn-right" for="gscSand">Sand</label>
                 </div>
-                <div class="gen-specific g5 g6 g7 g8 g9" style="width: 22.2em; margin: 5px auto; display: inline-block;">
-                    <span hidden id="magicRoomInstruction">Is Magic Room in effect?</span>
-                    <span hidden id="wonderRoomInstruction">Is Wonder Room in effect?</span>
-                    <input aria-describedby="magicRoomInstruction" class="visually-hidden calc-trigger" type="checkbox" id="magicroom" />
-                    <label class="btn btn-xxxwide btn-left" for="magicroom">Magic Room</label>
-                    <input aria-describedby="wonderRoomInstruction" class="visually-hidden calc-trigger" type="checkbox" id="wonderroom" />
-                    <label class="btn btn-xxxwide btn-right" for="wonderroom">Wonder Room</label>
-                </div>
-                <div class="gen-specific g4 g5 g6 g7 g8 g9" style="width: 5.3em; margin: 5px auto;" title="Is gravity in effect?">
+                <div class="gen-specific g4 g5 g6 g7 g8 g9" style="width: 22.2em; margin: 5px auto; display: inline-block;">
+                    <span class="gen-specific g5 g6 g7 g8 g9" style="margin-right: 0.4em;">
+                        <span hidden id="magicRoomInstruction">Is Magic Room in effect?</span>
+                        <input aria-describedby="magicRoomInstruction" class="visually-hidden calc-trigger" type="checkbox" id="magicroom" />
+                        <label class="btn btn-xxxwide btn-left" for="magicroom">Magic Room</label>
+                        <span hidden id="wonderRoomInstruction">Is Wonder Room in effect?</span>
+                        <input aria-describedby="wonderRoomInstruction" class="visually-hidden calc-trigger" type="checkbox" id="wonderroom" />
+                        <label class="btn btn-xxxwide btn-right" for="wonderroom">Wonder Room</label>
+                    </span>
                     <span hidden id="gravityInstruction">Is gravity in effect?</span>
                     <input aria-describedby="gravityInstruction" class="visually-hidden calc-trigger" type="checkbox" id="gravity" />
                     <label class="btn" for="gravity">Gravity</label>
@@ -1085,7 +1092,6 @@
                     <label>Type</label>
                     <select aria-label="Type 1" class="type1 terrain-trigger calc-trigger"></select>
                     <select aria-label="Type 2" class="type2 terrain-trigger calc-trigger"></select>
-                    <small class="right">(<a class="analysis links-lighten" target="_blank" href="">Smogon&nbsp;analysis</a>)</small>
                 </div>
                 <div class="gen-specific g9">
                     <label>Tera Type</label>

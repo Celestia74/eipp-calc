@@ -44,7 +44,7 @@ export interface MoveData {
 }
 
 const RBY: {[name: string]: MoveData} = {
-  '(No Move)': {bp: 0, category: 'Status', type: 'Normal'},
+  '(No Move)': {bp: 0, category: 'Status', type: '???'},
   Absorb: {bp: 20, type: 'Grass', drain: [1, 2]},
   Acid: {bp: 40, type: 'Poison'},
   Amnesia: {bp: 0, category: 'Status', type: 'Psychic'},
