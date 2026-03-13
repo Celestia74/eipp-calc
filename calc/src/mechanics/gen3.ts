@@ -373,7 +373,8 @@ export function calculateDefenseADV(
   }
 
   const defenseBoost = defender.boosts[defenseStat];
-  if (defenseBoost < 0 || (!isCritical && defenseBoost > 0)) {
+  if (defenseBoost !== 0) { // to return crit defense break, remove this line and un-comment the next
+//  if (defenseBoost < 0 || (!isCritical && defenseBoost > 0)) {
     df = getModifiedStat(df, defenseBoost);
     desc.defenseBoost = defenseBoost;
   }
