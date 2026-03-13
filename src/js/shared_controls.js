@@ -1232,6 +1232,7 @@ function createField() {
 	var isMagicRoom = $("#magicroom").prop("checked");
 	var isWonderRoom = $("#wonderroom").prop("checked");
 	var isGravity = $("#gravity").prop("checked");
+	var isDWC = [$("#dwcL").prop("checked"), $("#dwcR").prop("checked")];
 	var isSR = [$("#srL").prop("checked"), $("#srR").prop("checked")];
 	var weather;
 	var spikes;
@@ -1268,6 +1269,7 @@ function createField() {
 
 	var createSide = function (i) {
 		return new calc.Side({
+			isDWC: isDWC[i],
 			spikes: spikes[i],
 			isSR: isSR[i],
 			steelsurge: steelsurge[i],
@@ -1541,6 +1543,8 @@ function clearField() {
 	$("#magicroom").prop("checked", false);
 	$("#wonderroom").prop("checked", false);
 	$("#gravity").prop("checked", false);
+	$("#dwcL").prop("checked", true);
+	$("#dwcR").prop("checked", true);
 	$("#srL").prop("checked", false);
 	$("#srR").prop("checked", false);
 	$("#spikesL0").prop("checked", true);
